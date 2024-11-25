@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+int distance(Point a,Point b);
+double DJ(Point w);
+int PZ(Point x);
+int main()
+{
+//
+这里不清楚那个地图是怎么生成的，哈哈哈所以偷了一点懒，下面只写了找到最短路径且代价最低的方式（加入膨胀系数）
+***********************************
+
+（地图grid生成）
+
+***********************************
+struct Point
+{
+int x,y;
+Point(int  x,int y):x(_x),y(_y){}
+}
+int x1,x2,y1,y2,z,j,i=0,a[]={},b[]={};
+cin>>x1>>y1>>x2>>y2;
+Point start:x1,y1;
+Point goal:x2,y2;
+
+M://到时候没有到达终点时回到这个步骤，以此来寻找路径
+Point up:(x1-1),y1;
+Point down:(x1+1),y1;
+Point left :x1,(y1-1);
+Point right:x1,(y1+1);
+updj=DJ(Point up);
+downdj=DJ(Point down);
+leftdj=DJ(Point left);
+rightdj=DJ(Point right);
+int zhi=min{updj,downdj,leftdj,rightdj}
+if(zhi==updj)
+z=1;
+if(zhi==downdj)
+z=2;
+if(zhi==leftdj)
+z=3;
+if(zhi==rightdj)
+z=4;
+switch(z)
+{
+case 1: x1=x1-1;break;
+case 2: x1=x1+1;break;
+case 3: y1=y1-1;break;
+case 4: y1=y1+1;break;
+}
+a[i]=x1;b[i]=y1;
+i++;
+if(x1!=x2||y1!=y2)
+goto M;
+for(j=0;j<i;j++)
+cout<<a[j]<<"  "<<b[j]<<endl;
+system ("pause");
+return 0;
+}
+
+//以下命名子函数
+
+int distance(Point a,Point b)
+{
+return abs(a.x-b.x)+abs(a.y-b.y)
+}
+
+
+double DJ(Point w)
+{
+return distance(Point w,Point goal)+1+PZ(Point w)
+}
+
+int PZ(Point x)
+{
+Point up = x.x-1,x.y;
+Point down=x.x+1,x.y;
+Point left=x.x,x.y-1;
+Point right=x.x,x.y+1;
+return t*(Point up+Point down+Point left+Point right)
+}
